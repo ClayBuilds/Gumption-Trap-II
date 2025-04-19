@@ -129,7 +129,7 @@ def plotbb(bbdata):
 
     axs[1].set_title('PID Steering Output')
     axs[1].set_ylabel('%')
-    axs[1].scatter(pwmtime, pwmR, color = 'violet')
+    axs[1].scatter(pwmtime, Po, color = 'violet')
     axs[1].set_xlabel('Time (s)')
 
     plt.tight_layout()
