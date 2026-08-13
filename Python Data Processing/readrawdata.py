@@ -15,7 +15,7 @@ def get_raw_lists(datapath):
                 lines = coordsfile.readlines()
                 for line in lines:
                     #the first line is just the integer number of coordinate pairs so I'll ignore it. I may not include that in the future, so this if statement keeps it backwards compatible
-                    if not float(line.strip()).is_integer():
+                    if not float(line).is_integer():
                         raw_COORDS.append(float(line.strip()))
 
         if 'edge only' in file:
@@ -23,7 +23,7 @@ def get_raw_lists(datapath):
                 lines = edgefile.readlines()
                 for line in lines:
                     #the first line is just the integer number of coordinate pairs so I'll ignore it. I may not include that in the future, so this if statement keeps it backwards compatible
-                    if not float(line.strip()).is_integer():
+                    if not float(line).is_integer():
                         raw_edge.append(float(line.strip()))
            
         #parse the blackbox data into a list

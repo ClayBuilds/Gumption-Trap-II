@@ -18,8 +18,6 @@ def scale_axis(ax, zscalar):
     z_range = abs(z_limits[1] - z_limits[0])
     z_middle = np.mean(z_limits)
 
-    # z_range = z_range/zscalar
-
     plot_radius = 0.5 * max([x_range, y_range, z_range])
 
     ax.set_xlim3d([x_middle - plot_radius, x_middle + plot_radius])

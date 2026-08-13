@@ -1,26 +1,11 @@
 # GTII Main Data Processor
-# All of this code written for Sensor and Signal Interpretation Final project
-# 4/18/2025
+# Version 3
+# 11/29/2025
 
-# 'Gumption Trap II' (GTII) is an autonomous boat project I have been working on in my spare time for about a year.
-# This boat autonomously follows a path along a predetermined set of GPS coordinate waypoints
-# It uses a GPS module and a magnetometer as a compass for navigation.
-# A PID control loop steers it along its goal heading using a rudder and differential thrust across the two propellers
-# The boat is solar powered, operating nominally at about 200W. It also has 20Ah of battery capacity. 
-# The purpose of this boat is to create topographical maps of the bottoms of small lakes and ponds.
+# Changes from previous version:
+# -add function to output .txt pointcloud with final trimmed depth map
 
-# Sensors:
-# The boat's primary sensor is a sonar echo sounder which measures the depth of the water as the boat drives.
-# It has a GPS and magnetometer for navigation
-# There is a voltage sensor which monitors the battery voltage
-# 2 current sensors monitor the current coming out of the solar panel and the current drawn by the load of the entire system
-# the difference between the 2 sensor readings is the current into (+) or out of (-) the battery
-# an onboard SD card logs all the data once per second.
-
-# This project will create a python program to autonomously interpret and process the data collected by the boat.
-# I have previously done a little bit of data visualization for this in matlab, but I will completely redo and improve it in this python script.
-# I'll be working off over several .txt files from data I collected for this project on 4/12/25 from a small lake.
-# Example input data files are included. 
+# REMEBER don't upload obscure_coords publicly
 
 import numpy as np
 import readrawdata as r
@@ -28,6 +13,7 @@ import plotdepth as pd
 import coordfuncs as cf
 import dataprocessing as dp
 import pathplotter as pp
+import pointcloudout as pc
 
 
 datapath = 'raw data/'
@@ -88,10 +74,14 @@ mapx = depthx + edgex
 mapy = depthy + edgey
 mapz = -1*np.concatenate([depths, np.array(edge0)])
 zscalar = 10 #exagerate z visually
-pd.depthplot(mapx, mapy, mapz, zscalar)
-# pd.depthplot(depthlat, depthlon, depths)
 
-bbdata = dp.parseBB(raw_blackbox)
-dp.plotbb(bbdata)
+# pd.depthplot(mapx, mapy, mapz, zscalar)
+# # pd.depthplot(depthlat, depthlon, depths)
 
-pp.plotpath(raw_edge, raw_COORDS, raw_blackbox)
+# bbdata = dp.parseBB(raw_blackbox)
+# dp.plotbb(bbdata)
+
+# pp.plotpath(raw_edge, raw_COORDS, raw_blackbox)
+
+pc.pcout(mapx, mapy, mapz)
+pc.pcedgeout(edgex, edgey)
